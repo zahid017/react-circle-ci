@@ -5,7 +5,7 @@ jobs:
             - checkout
             - run:
                 name: Update npm
-                command: 'sudo npm install -g npm@latest
+                command: npm install -g npm@latest
             - run:
                 name: install codeclimate-test-reporter
                 command: npm install -g codeclimate-test-reporter

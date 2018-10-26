@@ -18,6 +18,9 @@ jobs:
             
     
     test:
+        machine:
+            node:
+                version: 6.0.0
         steps:
             - checkout
             - run:

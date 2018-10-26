@@ -1,6 +1,9 @@
 version: 2
 jobs:
     build:
+        machine:
+            node:
+                version: 6.0.0
         steps:
             - checkout
             - run:

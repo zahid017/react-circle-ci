@@ -12,7 +12,7 @@ jobs:
             - restore_cache:
                 key: v25-dependencies-{{ checksum "package.json" }}
             - run:
-                name: Install npm
+                name: &Install_npm
                 command: npm install
             - save_cache:
                 key: v25-dependencies-{{ checksum "package.json" }}
@@ -25,6 +25,7 @@ jobs:
                 version: 6.0.0
         steps:
             - checkout
+            - run: *Install_npm
             - run:
                 name: Test
                 command: npm run test:ci

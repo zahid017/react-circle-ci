@@ -12,22 +12,12 @@ jobs:
             - restore_cache:
                 key: v25-dependencies-{{ checksum "package.json" }}
             - run:
-                name: &Install_npm
+                name: Install_npm
                 command: npm install
             - save_cache:
                 key: v25-dependencies-{{ checksum "package.json" }}
                 paths:
-                    - node_modules
-    
-    test:
-        machine:
-            node:
-                version: 6.0.0
-        steps:
-            - checkout
-            - run:
-                name: Install_npm_test
-                command: npm install
+                    - ./node_modules
             - run:
                 name: Test
                 command: npm run test:ci
@@ -40,12 +30,14 @@ jobs:
             - store_artifacts:
                 path: coverage
                 prefix: coverage
+             - store_test_results:
+                path: test-results.xml
+            
 workflows:
   version: 2
-  build_and_test:
+  build:
     jobs:
-      - build
-      - test:
+      - build:
           requires:
             - build
           filters:

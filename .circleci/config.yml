@@ -25,7 +25,9 @@ jobs:
                 version: 6.0.0
         steps:
             - checkout
-            - run: *Install_npm
+            - run:
+                name: Install_npm_test
+                command: npm install
             - run:
                 name: Test
                 command: npm run test:ci

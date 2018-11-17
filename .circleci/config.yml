@@ -18,6 +18,22 @@ jobs:
                 key: v25-dependencies-{{ checksum "package.json" }}
                 paths:
                     - ./node_modules
+    
+    test:
+        machine:
+            node:
+                version: 6.0.0
+        steps:
+            - checkout
+            - restore_cache:
+                key: v25-dependencies-{{ checksum "package.json" }}
+            - run:
+                name: Install_npm
+                command: npm install
+            - save_cache:
+                key: v25-dependencies-{{ checksum "package.json" }}
+                paths:
+                    - ./node_modules
             - run:
                 name: Test
                 command: npm run test:ci
@@ -30,14 +46,14 @@ jobs:
             - store_artifacts:
                 path: coverage
                 prefix: coverage
-             - store_test_results:
+             - store_test_results: # special step to upload test results for display in Test Summary
                 path: test-results.xml
-            
 workflows:
   version: 2
-  build:
+  build_and_test:
     jobs:
-      - build:
+      - build
+      - test:
           requires:
             - build
           filters:

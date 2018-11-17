@@ -8,7 +8,16 @@ jobs:
             - checkout
             - run:
                 name: Update npm
-                command: npm install -g npm@latest           
+                command: npm install
+            - persist_to_workspace:
+                root: ./
+                paths:
+                    - node_modules
+
+            - save_cache:
+                paths:
+                    - node_modules
+                key: v25-dependencies-{{ checksum "package.json" }}          
     
     test:
         machine:

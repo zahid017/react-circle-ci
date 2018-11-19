@@ -25,7 +25,7 @@ jobs: # a collection of steps
           name: code-coverage
           command: 'npm run test:ci --reporter=text-lcov'
       - store_artifacts: # special step to save test results as as artifact
-          path: test-results.xml
+          path: ./coverage/clover.xml
           prefix: tests
       - store_artifacts:
           path: coverage
